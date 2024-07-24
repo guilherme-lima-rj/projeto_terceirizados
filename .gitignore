@@ -8,7 +8,7 @@ __pycache__/
 *$py.class
 
 # Dados em arquivos
-dados/
+dados/*.*
 
 # C extensions
 *.so
