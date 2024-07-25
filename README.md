@@ -8,7 +8,7 @@ Para isto, foi construído um pipeline que realiza a extração, processamento e
 
 
 ## Desenvolvimento
-O proejto foi desenvolvido na versão 3.12.1 do Python.
+O projeto foi desenvolvido em Python, na **versão 3.12.1**.
 
 Para facilitar o entendimento e manutenção do código, ele foi dividido em 3 módulos:
 
@@ -16,7 +16,7 @@ Para facilitar o entendimento e manutenção do código, ele foi dividido em 3 m
 * trasformação
 * carga
 
-Para executar o módulo de coleta dos arquivos no site, execute as linhas abaixo:
+Para executar o módulo **coleta** dos arquivos no site, execute as linhas abaixo:
 
 ```bash
 cd/coleta

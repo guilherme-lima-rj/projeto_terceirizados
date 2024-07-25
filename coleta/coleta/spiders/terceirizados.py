@@ -16,15 +16,15 @@ class TerceirizadosSpider(scrapy.Spider):
 
     def download_file(self, response):
         # Definindo diretório onde os arquivos serão salvos
-        download_dir = '../dados'
+        download_dir = '../dados/'
 
-        # Cria o diretório, caso não exista
+        # Cria o diretório com permissão de escrita e leitura, caso não exista
         os.makedirs(download_dir, exist_ok=True)
+        os.chmod(download_dir, 0o777)
 
         # Captura o nome do arquivo 
         file_name = os.path.join(download_dir, response.url.split("/")[-1])
 
         # Salva o arquivo no diretório acima especificado
         with open(file_name, 'wb') as f:
-            f.write(response.body)
-        self.log(f'Salvo arquivo {file_name}')
+            f.write(response.body)        
