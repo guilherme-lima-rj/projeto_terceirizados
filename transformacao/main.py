@@ -7,8 +7,8 @@ from datetime import datetime
 # Parametros utilizados no código
 date_time_file = datetime.now
 input_files = '..\\dados'
-output_dir = '..\\dados\\agrupados'
-output_file = 'terceirizados_agrupados.csv'
+output_dir = '..\\dados\\consolidados'
+output_file = 'terceirizados_consolidados.csv'
 output_file_dir = f'{output_dir}\\{output_file}'
 
 # Listando arquivos xlsx
@@ -35,6 +35,7 @@ if not csv_files:
     print('Nenhum arquivo CSV para processamento.')
 else:
     # Dataframe vazio que armazenara os dados dos arquivos
+    df_appended=[]
     df_result = []
 
     # Loop para processar os arquivos encontrados
@@ -42,10 +43,14 @@ else:
         try:
             # Adiciona 1 ao contador
             file_counter += 1
-
+            
             # Lê o arquivo do array e carrega os dados num dataframe temporario
-            df_temp = pd.read_csv(csv_file, sep=';')
-                                  
+            df_temp = pd.read_csv(csv_file, sep=';', encoding='latin-1', low_memory=False)
+
+            # Para leitura (read binary mode)
+#            with open(csv_file, 'rb') as file:
+#                df_temp = csv.reader(file)
+           
             # Captura somente o nome do arquivo
             #file_name = os.path.basename(csv_file)
 
@@ -61,17 +66,21 @@ else:
         except Exception as e:
             print(f'Erro ao ler o arquivo {csv_file} : {e}')
         
-    # Verifica se o df_result contem dados
+    # Verifica se o df_appended contem dados
     if df_result:    
         # Concatena todos os dataframes salvosem um único dataframe
-        df_result = pd.concat(df_result, ignore_index= True)
+        df_final = pd.concat(df_result, ignore_index= True)
 
         # Cria o diretório de saída com permissão de escrita e leitura, caso não exista
         os.makedirs(output_dir, exist_ok=True)
         os.chmod(output_dir, 0o777)
         
+        # Cria o arquivo CSV de saída
+        #with open('output_file_dir', 'w', newline='') as new_file:
+        #    writer = csv.writer(new_file)          
+
         # Cria arquivo CSV com os dados do df_result
-        df_result.to_csv(output_file_dir, index=False)
+        df_final.to_csv(output_file_dir, index=False, sep=';')
 
     else:
         print('Nenhum dado para ser salvo.')

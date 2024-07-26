@@ -9,7 +9,7 @@ __pycache__/
 
 # Dados em arquivos
 dados/*.*
-dados/agrupados
+dados/consolidados/*.*
 
 # C extensions
 *.so
